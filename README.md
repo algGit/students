@@ -6,3 +6,11 @@
 * system **save** sorted *students* (file, db, ect)
 
 
+## App architecture: 
+* based on **clean architecture**
+* *domain* layer contains app domain model
+* *use case* layer is same as service layer, contains business logic
+* *adapter* layer contains connections with infrastructure and UI.
+* layers connected by ports
+
+
