@@ -2,8 +2,6 @@ package com.uniquex.students.usecase;
 
 import com.uniquex.students.domain.entity.GradedStudent;
 import com.uniquex.students.domain.entity.port.Student;
-import com.uniquex.students.usecase.sort.algorithms.Bubble;
-import com.uniquex.students.usecase.sort.algorithms.Heap;
 import com.uniquex.students.usecase.sort.algorithms.Merge;
 import com.uniquex.students.usecase.sort.algorithms.port.SortAlgorithm;
 import org.junit.jupiter.api.Test;
@@ -20,26 +18,23 @@ class StudentSorterTest {
     @Test
     public void sortStudentsByBubble_emptyStudentsList() {
         StudentSorter studentSorter = new StudentSorter();
-        Bubble bubble = new Bubble();
         List<Student> students = new ArrayList<>(Collections.emptyList());
-        List<Student> studentsResult = studentSorter.sortStudentsBy(bubble, students);
+        List<Student> studentsResult = studentSorter.sortStudentsBy("bubble", students);
         assertSame(students, studentsResult);
     }
 
     @Test
     public void sortStudentsByBubble_shouldReturnInCorrectOrder() {
         StudentSorter studentSorter = new StudentSorter();
-        SortAlgorithm bubble = new Bubble();
         List<Student> students = getStudentsInReverseOrder();
-        List<Student> studentsResult = studentSorter.sortStudentsBy(bubble, students);
+        List<Student> studentsResult = studentSorter.sortStudentsBy("bubble", students);
         assertThat(studentsResult).isEqualTo(getStudentsInNaturalOrder());
     }
 
     @Test
     public void sortStudentsByHeap_shouldReturnInCorrectOrder() {
         StudentSorter studentSorter = new StudentSorter();
-        SortAlgorithm heap = new Heap();
-        List<Student> studentsResult = studentSorter.sortStudentsBy(heap, getStudentsInReverseOrder());
+        List<Student> studentsResult = studentSorter.sortStudentsBy("heap", getStudentsInReverseOrder());
         assertThat(studentsResult).isEqualTo(getStudentsInNaturalOrder());
     }
 
@@ -47,7 +42,7 @@ class StudentSorterTest {
     public void sortStudentsByMerge_shouldReturnInCorrectOrder() {
         StudentSorter studentSorter = new StudentSorter();
         SortAlgorithm merge = new Merge();
-        List<Student> studentsResult = studentSorter.sortStudentsBy(merge, getStudentsInReverseOrder());
+        List<Student> studentsResult = studentSorter.sortStudentsBy("merge", getStudentsInReverseOrder());
         assertThat(studentsResult).isEqualTo(getStudentsInNaturalOrder());
     }
 
@@ -55,16 +50,14 @@ class StudentSorterTest {
         Student student1 = new GradedStudent("Student1", 1.0);
         Student student2 = new GradedStudent("Student2", 2.0);
         Student student3 = new GradedStudent("Student3", 3.0);
-        Student student4 = new GradedStudent("Student4", 4.0);
-        return List.of(student4, student3, student2, student1);
+        return List.of(student3, student2, student1);
     }
 
     private List<Student> getStudentsInNaturalOrder() {
         Student student1 = new GradedStudent("Student1", 1.0);
         Student student2 = new GradedStudent("Student2", 2.0);
         Student student3 = new GradedStudent("Student3", 3.0);
-        Student student4 = new GradedStudent("Student4", 4.0);
-        return List.of(student1, student2, student3, student4);
+        return List.of(student1, student2, student3);
     }
 
 }
